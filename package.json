@@ -11,7 +11,8 @@
     "express": "3.4.8",
     "ejs": "*",
     "mongodb":"*",
-    "connect-mongo":"*"
+    "connect-mongo":"*",
+    "morgan": "~1.6.1"
   }
 
 }

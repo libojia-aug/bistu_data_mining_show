@@ -2,26 +2,22 @@
      <div class="container">
 
       <div class="masthead">
-        <h3 class="muted">DATA MINING</h3>
-        <div class="navbar">
-          <div class="navbar-inner">
-            <div class="container">
-              <ul class="nav">
-                <li class="active"><a href="#">Home</a></li>
-                <li><a href="#">Projects</a></li>
-                <li><a href="#">Services</a></li>
-                <li><a href="#">Downloads</a></li>
-              </ul>
-            </div>
-          </div>
-        </div><!-- /.navbar -->
+        <h3 class="text-muted">DATA MINING</h3>
+        <nav>
+          <ul class="nav nav-justified">
+            <li class="active"><a href="/">Home</a></li>
+                <li><a href="/userInfo">UserInfo</a></li>
+                <li><a href="/gameCenter">GameCenter</a></li>
+                <li><a href="/jdInfo">JDInfo</a></li>
+          </ul>
+        </nav>
       </div>
 
       <!-- Jumbotron -->
       <div class="jumbotron">
-        <h1>蒙大美，就是美!</h1>
-        <p class="lead">Cras justo odio, dapibus ac facilisis in, egestas eget quam. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
-        <a class="btn btn-large btn-success" href="#">Get started today</a>
+        <h1>Just show it!</h1>
+        <p class="lead">This is used to Web Mining demo, Let us something amazing！</p>
+        <a class="btn btn-large btn-success" href="/userInfo">Get started</a>
       </div>
 
       <div class="footer">
@@ -29,106 +25,5 @@
       </div>
 
     </div> <!-- /container -->
-    <script src="http://code.jquery.com/jquery.js"></script>
-    <script src="/js/bootstrap.min.js"></script>
-
 </body>
-<script type="text/javascript">
-    //获取页面positionInfo 用于显示位置组件
-    var positionInfo;
-    window.onload = function() {
-            console.log("进入初始化。。。。！");
-            // positionInfo = document.getElementByIdx_x("positionInfo");
-            //判断浏览器是否有geolocation属性
-            if (navigator.geolocation) {
-                console.log(navigator.geolocation);
-                console.log("成功获取geolocation属性！");
-                //getCurrentPosition
-                //watchPosition类似GPS
-                navigator.geolocation.getCurrentPosition(onSuccess, onError,{timeout:5000});
-                navigator.geolocation.watchPosition(showPosition, showError, null);
-            } else {
-                console.log("当前浏览器没有获取到geolocation属性!");
-            }
-        }
-        var onSuccess = function(position) {
-            console.log("onSuccess");
-            alert('Latitude: ' + position.coords.latitude + '\n' +
-                'Longitude: ' + position.coords.longitude + '\n' +
-                'Altitude: ' + position.coords.altitude + '\n' +
-                'Accuracy: ' + position.coords.accuracy + '\n' +
-                'Altitude Accuracy: ' + position.coords.altitudeAccuracy + '\n' +
-                'Heading: ' + position.coords.heading + '\n' +
-                'Speed: ' + position.coords.speed + '\n' +
-                'Timestamp: ' + new Date(position.timestamp) + '\n');
-        };
-
-        // onError回调函数接收一个PositionError对象
-        function onError(error) {
-            console.log("onError");
-            alert('code: ' + error.code + '\n' +
-                'message: ' + error.message + '\n');
-        }
-
-
-        //成功获取geolocation属性后调用回调函数
-    function showPosition(position) {
-        console.log("showPosition");
-        //获取当前地理位置.定义消息
-        var i;
-        var infoMsg = "经度: " + position.coords.latitude + "<br />纬度: " + position.coords.longitude + "<br />";
-        if (position.coords.altitude != null) {
-            infoMsg += "海拔高度:" + position.coords.altitude + " <br />";
-        }
-        infoMsg += "经纬度精确到:" + position.coords.accuracy + "米 <br />";
-
-        console.log(infoMsg);
-        positionInfo.innerHTML = infoMsg;
-        //设置Google地图参数，当位置设定为地图中心点
-        var latlng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-        var myOptions = {
-            // 设定放大倍数
-            zoom: 15,
-            // 将地图的中心点设定为指定的坐标点
-            center: latlng,
-            // 指定地图的类型，这里选择的是街道地图
-            mapTypeId: google.maps.MapTypeId.ROADMAP
-        };
-        //创建地图，并显示到DIV中
-        var mapView = new google.maps.Map(document.getElementByIdx_x("map"), myOptions);
-        // 在地图上创建标记
-        var marker = new google.maps.Marker({
-            //标注刚才创建的标注点，因为标注点是由当前的经纬度设定的，所以表示了当前位置
-            position: latlng,
-            //标注在哪张地图上，我们创建了mapView作为google map，所以标注在mapView上
-            map: mapView
-        });
-        // 设定标注窗口，并且指定该窗口的注释文字
-        var infowindow = new google.maps.InfoWindow({
-            content: "当前浏览器定位！！！"
-        });
-        // 打开标注窗口
-        infowindow.open(mapView, marker);
-    }
-    //错误信息回调函数
-    function showError(error) {
-        switch (error.code) {
-            case error.PERMISSION_DENIED:
-                console.log("用户不允许地理定位.");
-                positionInfo.innerHTML = "用户不允许地理定位."
-                break;
-            case error.POSITION_UNAVAILABLE:
-                console.log("无法获取当前位置.");
-                positionInfo.innerHTML = "无法获取当前位置."
-                break;
-            case error.TIMEOUT:
-                console.log("操作超时.");
-                positionInfo.innerHTML = "操作超时."
-                break;
-            case error.UNKNOWN_ERROR:
-                positionInfo.innerHTML = "An unknown error occurred."
-                break;
-        }
-    }
-</script>
 </html>

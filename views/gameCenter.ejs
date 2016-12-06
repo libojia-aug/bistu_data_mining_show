@@ -1,0 +1,245 @@
+<%- include header %>
+<div class="container">
+      <div class="masthead">
+        <h3 class="text-muted">DATA MINING</h3>
+        <nav>
+          <ul class="nav nav-justified">
+            <li><a href="/">Home</a></li>
+            <li><a href="/userInfo">UserInfo</a></li>
+            <li class="active"><a href="/gameCenter">GameCenter</a></li>
+            <li><a href="/jdInfo">JDInfo</a></li>
+          </ul>
+        </nav>
+      </div>
+<div id="myCarousel" class="carousel slide">
+      <!-- Indicators -->
+      <ol class="carousel-indicators">
+        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+        <li data-target="#myCarousel" data-slide-to="1"></li>
+        <li data-target="#myCarousel" data-slide-to="2"></li>
+      </ol>
+      <div class="carousel-inner" role="listbox">
+        <div class="item active">
+          <div class="row">
+            <div class="center-block" id="a" style="width:960px;height:640px;"></div>
+    
+          </div>
+        </div>
+        <div class="item">
+          
+        </div>
+        <div class="item">
+          
+        </div>
+      </div>
+      <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+      </a>
+      <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+      </a>
+    </div><!-- /.carousel -->
+</body>
+<script type="text/javascript">
+$(function() {
+  $("#myCarousel").carousel('pause');
+});
+// 基于准备好的dom，初始化echarts实例
+var myChart = echarts.init(document.getElementById('a'));
+
+var builderJson = {
+  "all1024": 5937741228,
+  "all1202": 6137340899,
+  "charts1024": {
+    "儿童游戏": 38347852,
+    "体育竞速": 557149702,
+    "棋牌天地": 628743088,
+    "网络游戏": 291305323,
+    "经营策略": 394675375,
+    "角色扮演": 641538465,
+    "飞行射击": 510751423,
+    "动作冒险": 463830000,
+    "休闲益智": 2411400000
+  },
+  "charts1202": {
+    "儿童游戏": 42092107,
+    "体育竞速": 556309093,
+    "棋牌天地": 680127684,
+    "网络游戏": 291869697,
+    "经营策略": 399306358,
+    "角色扮演": 706481762,
+    "飞行射击": 492884198,
+    "动作冒险": 469730000,
+    "休闲益智": 2498540000
+  }
+};
+var pie1024 = {
+  "休闲益智": 2411400000,
+  "儿童游戏": 38347852,
+  "体育竞速": 557149702,
+  "棋牌天地": 628743088,
+  "网络游戏": 291305323,
+  "经营策略": 394675375,
+  "角色扮演": 641538465,
+  "飞行射击": 510751423,
+  "动作冒险": 463830000
+};
+
+var pie1202 = {
+  "休闲益智": 2498540000,
+  "儿童游戏": 42092107,
+  "体育竞速": 556309093,
+  "棋牌天地": 680127684,
+  "网络游戏": 291869697,
+  "经营策略": 399306358,
+  "角色扮演": 706481762,
+  "飞行射击": 492884198,
+  "动作冒险": 469730000
+};
+
+var canvas = document.createElement('canvas');
+
+option = {
+    backgroundColor: {
+        type: 'pattern',
+        image: canvas,
+        repeat: 'repeat'
+    },
+    tooltip: {},
+    title: [{
+        text: '游戏下载量',
+        subtext: '2016年10月24日：' + builderJson.all1024+'     2016年12月02日：' + builderJson.all1202,
+        x: '10%',
+        textAlign: 'left'
+    }],
+    grid: [{
+        top: 50,
+        width: '50%',
+        bottom: '45%',
+        left: 10,
+        containLabel: true
+    }, {
+        top: '55%',
+        width: '50%',
+        bottom: 0,
+        left: 10,
+        containLabel: true
+    }],
+    xAxis: [{
+        type: 'value',
+        max: builderJson.all,
+        splitLine: {
+            show: false
+        }
+    }, {
+        type: 'value',
+        max: builderJson.all,
+        gridIndex: 1,
+        splitLine: {
+            show: false
+        }
+    }],
+    yAxis: [{
+        type: 'category',
+        data: Object.keys(builderJson.charts1024),
+        axisLabel: {
+            interval: 0,
+            rotate: 30
+        },
+        splitLine: {
+            show: false
+        }
+    }, {
+        gridIndex: 1,
+        type: 'category',
+        data: Object.keys(builderJson.charts1202),
+        axisLabel: {
+            interval: 0,
+            rotate: 30
+        },
+        splitLine: {
+            show: false
+        }
+    }],
+    series: [{
+        type: 'bar',
+        stack: 'chart',
+        z: 3,
+        label: {
+            normal: {
+                position: 'right',
+                show: true
+            }
+        },
+        data: Object.keys(builderJson.charts1024).map(function (key) {
+            return builderJson.charts1024[key];
+        })
+    }, {
+        type: 'bar',
+        stack: 'chart',
+        silent: true,
+        itemStyle: {
+            normal: {
+                color: '#eee'
+            }
+        },
+        data: Object.keys(builderJson.charts1024).map(function (key) {
+            return builderJson.all - builderJson.charts1024[key];
+        })
+    }, {
+        type: 'bar',
+        stack: 'component',
+        xAxisIndex: 1,
+        yAxisIndex: 1,
+        z: 3,
+        label: {
+            normal: {
+                position: 'right',
+                show: true
+            }
+        },
+        data: Object.keys(builderJson.charts1202).map(function (key) {
+            return builderJson.charts1202[key];
+        })
+    }, {
+        type: 'bar',
+        stack: 'component',
+        silent: true,
+        xAxisIndex: 1,
+        yAxisIndex: 1,
+        itemStyle: {
+            normal: {
+                color: '#eee'
+            }
+        },
+        data: Object.keys(builderJson.charts1202).map(function (key) {
+            return builderJson.all - builderJson.charts1202[key];
+        })
+    }, {
+        type: 'pie',
+        radius: [0, '30%'],
+        center: ['75%', '25%'],
+        data: Object.keys(pie1024).map(function (key) {
+            return {
+                name: key.replace('.js', ''),
+                value: pie1024[key]
+            }
+        })
+    }, {
+        type: 'pie',
+        radius: [0, '30%'],
+        center: ['75%', '75%'],
+        data: Object.keys(pie1202).map(function (key) {
+            return {
+                name: key.replace('.js', ''),
+                value: pie1202[key]
+            }
+        })
+    }]
+}
+// 使用刚指定的配置项和数据显示图表。
+myChart.setOption(option);
+</script>
+</html>
