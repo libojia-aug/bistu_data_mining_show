@@ -26,7 +26,10 @@
           </div>
         </div>
         <div class="item">
-          
+          <div class="row">
+             <div class="center-block" id="b" style="width:800px;height:600px;"></div>
+    
+          </div>
         </div>
         <div class="item">
           
@@ -41,35 +44,515 @@
         <span class="sr-only">Next</span>
       </a>
     </div><!-- /.carousel -->
-</body>
+</body> 
+<script src="/js/china.js" charset ="utf-8"></script> 
 <script type="text/javascript">
-        $(function(){
-        $("#myCarousel").carousel('pause');
-        });
-        // 基于准备好的dom，初始化echarts实例
-        var myChart = echarts.init(document.getElementById('a'));
+$(function() {
+  $("#myCarousel").carousel('pause');
+});
+// 基于准备好的dom，初始化echarts实例
+var myChartA = echarts.init(document.getElementById('a'));
 
-        // 指定图表的配置项和数据
-        var option = {
-            title: {
-                text: 'ECharts 入门示例'
-            },
-            tooltip: {},
-            legend: {
-                data:['销量']
-            },
-            xAxis: {
-                data: ["衬衫","羊毛衫","雪纺衫","裤子","高跟鞋","袜子"]
-            },
-            yAxis: {},
-            series: [{
-                name: '销量',
-                type: 'bar',
-                data: [5, 20, 36, 10, 10, 20]
-            }]
-        };
+var allDataA = {
+  "citys": [{
+    "name": "北京",
+    "value": [116.4551, 40.2539],
+    "symbolSize": 20,
+    "itemStyle": {
+      "normal": {
+        "color": "#58B3CC"
+      }
+    }
+  }, {
+    "name": "杭州",
+    "value": [119.5313, 29.8773],
+    "symbolSize": 19,
+    "itemStyle": {
+      "normal": {
+        "color": "#F58158"
+      }
+    }
+  }, {
+    "name": "南京",
+    "value": [118.8062, 31.9208],
+    "symbolSize": 18,
+    "itemStyle": {
+      "normal": {
+        "color": "#F58158"
+      }
+    }
+  }, {
+    "name": "上海",
+    "value": [121.4648, 31.2891],
+    "symbolSize": 17,
+    "itemStyle": {
+      "normal": {
+        "color": "#F58158"
+      }
+    }
+  }, {
+    "name": "广州",
+    "value": [113.5107, 23.2196],
+    "symbolSize": 16,
+    "itemStyle": {
+      "normal": {
+        "color": "#F58158"
+      }
+    }
+  }, {
+    "name": "湖州",
+    "value": [119.8608, 30.7782],
+    "symbolSize": 15,
+    "itemStyle": {
+      "normal": {
+        "color": "#F58158"
+      }
+    }
+  }, {
+    "name": "兰州",
+    "value": [103.5901, 36.3043],
+    "symbolSize": 14,
+    "itemStyle": {
+      "normal": {
+        "color": "#F58158"
+      }
+    }
+  }, {
+    "name": "郑州",
+    "value": [113.4668, 34.6234],
+    "symbolSize": 13,
+    "itemStyle": {
+      "normal": {
+        "color": "#F58158"
+      }
+    }
+  }, {
+    "name": "武汉",
+    "value": [114.3896, 30.6628],
+    "symbolSize": 12,
+    "itemStyle": {
+      "normal": {
+        "color": "#F58158"
+      }
+    }
+  }, {
+    "name": "天津",
+    "value": [117.4219, 39.4189],
+    "symbolSize": 11,
+    "itemStyle": {
+      "normal": {
+        "color": "#F58158"
+      }
+    }
+  }, {
+    "name": "深圳",
+    "value": [114.5435, 22.5439],
+    "symbolSize": 10,
+    "itemStyle": {
+      "normal": {
+        "color": "#F58158"
+      }
+    }
+  }, {
+    "name": "金华",
+    "value": [120.0037, 29.1028],
+    "symbolSize": 9,
+    "itemStyle": {
+      "normal": {
+        "color": "#F58158"
+      }
+    }
+  }, {
+    "name": "成都",
+    "value": [103.9526, 30.7617],
+    "symbolSize": 8,
+    "itemStyle": {
+      "normal": {
+        "color": "#F58158"
+      }
+    }
+  }, {
+    "name": "济南",
+    "value": [117.1582, 36.8701],
+    "symbolSize": 7,
+    "itemStyle": {
+      "normal": {
+        "color": "#F58158"
+      }
+    }
+  }, {
+    "name": "沈阳",
+    "value": [123.1238, 42.1216],
+    "symbolSize": 6,
+    "itemStyle": {
+      "normal": {
+        "color": "#F58158"
+      }
+    }
+  }, {
+    "name": "太原",
+    "value": [112.3352, 37.9413],
+    "symbolSize": 5,
+    "itemStyle": {
+      "normal": {
+        "color": "#F58158"
+      }
+    }
+  }, {
+    "name": "重庆",
+    "value": [107.7539, 30.1904],
+    "symbolSize": 4,
+    "itemStyle": {
+      "normal": {
+        "color": "#F58158"
+      }
+    }
+  }, {
+    "name": "福州",
+    "value": [119.4543, 25.9222],
+    "symbolSize": 3,
+    "itemStyle": {
+      "normal": {
+        "color": "#F58158"
+      }
+    }
+  }, {
+    "name": "南昌",
+    "value": [116.0046, 28.6633],
+    "symbolSize": 2,
+    "itemStyle": {
+      "normal": {
+        "color": "#F58158"
+      }
+    }
+  }, {
+    "name": "丽水",
+    "value": [119.5642, 28.1854],
+    "symbolSize": 1,
+    "itemStyle": {
+      "normal": {
+        "color": "#F58158"
+      }
+    }
+  }],
+  "moveLines": [{
+    "fromName": "北京",
+    "toName": "北京",
+    "coords": [
+      [116.4551, 40.2539],
+      [116.4551, 40.2539]
+    ]
+  }, {
+    "fromName": "北京",
+    "toName": "杭州",
+    "coords": [
+      [116.4551, 40.2539],
+      [119.5313, 29.8773]
+    ]
+  }, {
+    "fromName": "北京",
+    "toName": "南京",
+    "coords": [
+      [116.4551, 40.2539],
+      [118.8062, 31.9208]
+    ]
+  }, {
+    "fromName": "北京",
+    "toName": "上海",
+    "coords": [
+      [116.4551, 40.2539],
+      [121.4648, 31.2891]
+    ]
+  }, {
+    "fromName": "北京",
+    "toName": "广州",
+    "coords": [
+      [116.4551, 40.2539],
+      [113.5107, 23.2196]
+    ]
+  }, {
+    "fromName": "北京",
+    "toName": "湖州",
+    "coords": [
+      [116.4551, 40.2539],
+      [119.8608, 30.7782]
+    ]
+  }, {
+    "fromName": "北京",
+    "toName": "兰州",
+    "coords": [
+      [116.4551, 40.2539],
+      [103.5901, 36.3043]
+    ]
+  }, {
+    "fromName": "北京",
+    "toName": "郑州",
+    "coords": [
+      [116.4551, 40.2539],
+      [113.4668, 34.6234]
+    ]
+  }, {
+    "fromName": "北京",
+    "toName": "武汉",
+    "coords": [
+      [116.4551, 40.2539],
+      [114.3896, 30.6628]
+    ]
+  }, {
+    "fromName": "北京",
+    "toName": "天津",
+    "coords": [
+      [116.4551, 40.2539],
+      [117.4219, 39.4189]
+    ]
+  }, {
+    "fromName": "北京",
+    "toName": "深圳",
+    "coords": [
+      [116.4551, 40.2539],
+      [114.5435, 22.5439]
+    ]
+  }, {
+    "fromName": "北京",
+    "toName": "金华",
+    "coords": [
+      [116.4551, 40.2539],
+      [120.0037, 29.1028]
+    ]
+  }, {
+    "fromName": "北京",
+    "toName": "成都",
+    "coords": [
+      [116.4551, 40.2539],
+      [103.9526, 30.7617]
+    ]
+  }, {
+    "fromName": "北京",
+    "toName": "济南",
+    "coords": [
+      [116.4551, 40.2539],
+      [117.1582, 36.8701]
+    ]
+  }, {
+    "fromName": "北京",
+    "toName": "沈阳",
+    "coords": [
+      [116.4551, 40.2539],
+      [123.1238, 42.1216]
+    ]
+  }, {
+    "fromName": "北京",
+    "toName": "太原",
+    "coords": [
+      [116.4551, 40.2539],
+      [112.3352, 37.9413]
+    ]
+  }, {
+    "fromName": "北京",
+    "toName": "重庆",
+    "coords": [
+      [116.4551, 40.2539],
+      [107.7539, 30.1904]
+    ]
+  }, {
+    "fromName": "北京",
+    "toName": "福州",
+    "coords": [
+      [116.4551, 40.2539],
+      [119.4543, 25.9222]
+    ]
+  }, {
+    "fromName": "北京",
+    "toName": "南昌",
+    "coords": [
+      [116.4551, 40.2539],
+      [116.0046, 28.6633]
+    ]
+  }, {
+    "fromName": "北京",
+    "toName": "丽水",
+    "coords": [
+      [116.4551, 40.2539],
+      [119.5642, 28.1854]
+    ]
+  }]
+};
+optionA = {
+  backgroundColor: '#404a59',
+  title: {
+    text: '流量-地域图',
+    left: 'center',
+    textStyle: {
+      color: '#fff'
+    }
+  },
+  legend: {
+    show: false,
+    orient: 'vertical',
+    top: 'bottom',
+    left: 'right',
+    data: ['地点', '线路'],
+    textStyle: {
+      color: '#fff'
+    }
+  },
+  geo: {
+    map: 'china',
+    label: {
+      emphasis: {
+        show: false
+      }
+    },
+    roam: true,
+    itemStyle: {
+      normal: {
+        areaColor: '#323c48',
+        borderColor: '#404a59'
+      },
+      emphasis: {
+        areaColor: '#2a333d'
+      }
+    }
+  },
+  series: [{
+    name: '地点',
+    type: 'effectScatter',
+    coordinateSystem: 'geo',
+    zlevel: 2,
+    rippleEffect: {
+      brushType: 'stroke'
+    },
+    label: {
+      emphasis: {
+        show: true,
+        position: 'right',
+        formatter: '{b}'
+      }
+    },
+    symbolSize: 2,
+    showEffectOn: 'render',
+    itemStyle: {
+      normal: {
+        color: '#46bee9'
+      }
+    },
+    data: allDataA.citys
+  }, {
+    name: '线路',
+    type: 'lines',
+    coordinateSystem: 'geo',
+    zlevel: 2,
+    large: true,
+    effect: {
+      show: true,
+      constantSpeed: 30,
+      symbol: 'pin',
+      symbolSize: 15,
+      trailLength: 0,
+    },
+    lineStyle: {
+      normal: {
+        color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+          offset: 0,
+          color: '#58B3CC'
+        }, {
+          offset: 1,
+          color: '#F58158'
+        }], false),
+        width: 3,
+        opacity: 0.2,
+        curveness: 0.1
+      }
+    },
+    data: allDataA.moveLines
+  }]
+};
 
-        // 使用刚指定的配置项和数据显示图表。
-        myChart.setOption(option);
-    </script>
+// 使用刚指定的配置项和数据显示图表。
+myChartA.setOption(optionA);
+
+var myChartB = echarts.init(document.getElementById('b'));
+optionB = {
+    title : {
+        text: '流量-应用图',
+        x:'center'
+    },
+    tooltip : {
+        trigger: 'item',
+        formatter: "{a} <br/>{b} : {c} ({d}%)"
+    },
+    legend: {
+        x : 'center',
+        y : 'bottom',
+        data:['so.com',
+'YouKu',
+'DaZhongDianPing',
+'alimama.com',
+'WeiXin',
+'51.la',
+'caijing.com.cn',
+'autohome.com.cn',
+'RayLi',
+'QQ_Browsing',
+'Sina_Common',
+'aliyun.com',
+'LeTV',
+'TaoBao',
+'QiYi',
+'hao123.com',
+'sogou.com',
+'360Buy',
+'cnzz.com',
+'BaiDu']
+    },
+    toolbox: {
+        show : true,
+        feature : {
+            mark : {show: true},
+            dataView : {show: true, readOnly: false},
+            magicType : {
+                show: true,
+                type: ['pie', 'funnel']
+            },
+            restore : {show: true},
+            saveAsImage : {show: true}
+        }
+    },
+    calculable : true,
+    series : [
+        {
+            name:'面积模式',
+            type:'pie',
+            radius : [30, 110],
+            center : ['50%', '50%'],
+            roseType : 'area',
+            data:[
+                {value:10026, name:'so.com'},
+{value:10030, name:'YouKu'},
+{value:10922, name:'DaZhongDianPing'},
+{value:11191, name:'alimama.com'},
+{value:11598, name:'WeiXin'},
+{value:12932, name:'51.la'},
+{value:14078, name:'caijing.com.cn'},
+{value:17241, name:'autohome.com.cn'},
+{value:22160, name:'RayLi'},
+{value:22573, name:'QQ_Browsing'},
+{value:23532, name:'Sina_Common'},
+{value:27243, name:'aliyun.com'},
+{value:30289, name:'LeTV'},
+{value:42655, name:'TaoBao'},
+{value:45934, name:'QiYi'},
+{value:65344, name:'hao123.com'},
+{value:66849, name:'sogou.com'},
+{value:79223, name:'360Buy'},
+{value:111716, name:'cnzz.com'},
+{value:328961, name:'BaiDu'}
+            ]
+        }
+    ]
+};
+
+myChartB.setOption(optionB);
+</script>
+
 </html>

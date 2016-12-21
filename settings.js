@@ -9,5 +9,6 @@ module.exports = {
 	dbLog: "db.log",
 	serverPort: 3001,
 	cookieAge: 1000 * 10,
-	logFormats: "common"
+	logFormats: "common",
+	testServerPort: 3002
 };

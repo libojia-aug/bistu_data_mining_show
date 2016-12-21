@@ -11,6 +11,20 @@ var dbLog = fs.createWriteStream(path.join(".", settings.logFolder, settings.dbL
   flags: "r+"
 });
 
+var _classMap = {
+  "Mac": 0,
+  "iPhone": 0,
+  "小米note2": 0,
+  "魅族note5": 0,
+  "联想ZUKZ21": 0,
+  "红米note3": 0,
+  "小米notepro": 0,
+  "小米2": 0,
+  "小米5s": 0,
+  "华为": 0,
+  "not": 0
+};
+
 module.exports = function(app) {
   app.get("/", function(req, res) {
     if (!req.session.isGet) {
@@ -30,22 +44,43 @@ module.exports = function(app) {
   });
 
   app.get("/userInfo", function(req, res) {
-    res.render("userInfo", {
-    });
+    res.render("userInfo", {});
   });
 
   app.get("/gameCenter", function(req, res) {
-    res.render("gameCenter", {
-    });
+    res.render("gameCenter", {});
   });
-  
+
   app.get("/jdInfo", function(req, res) {
-    res.render("jdInfo", {
-    });
+    res.render("jdInfo", {});
   });
 };
 
-
+function getDevice(agent) {
+  if (jsonLine.agent.indexOf("Intel Mac OS X") > -1) {
+    _classMap["Mac"]++;
+  } else if (jsonLine.agent.indexOf("iPhone OS") > -1) {
+    _classMap["iPhone"]++;
+  } else if (jsonLine.agent.indexOf("m2 note") > -1) {
+    _classMap["小米note2"]++;
+  } else if (jsonLine.agent.indexOf("M5 Note") > -1) {
+    _classMap["魅族note5"]++;
+  } else if (jsonLine.agent.indexOf("ZUK Z2131") > -1) {
+    _classMap["联想ZUKZ21"]++;
+  } else if (jsonLine.agent.indexOf("Redmi Note 3") > -1) {
+    _classMap["红米note3"]++;
+  } else if (jsonLine.agent.indexOf("MI NOTE Pro") > -1) {
+    _classMap["小米notepro"]++;
+  } else if (jsonLine.agent.indexOf("MI 2") > -1) {
+    _classMap["小米2"]++;
+  } else if (jsonLine.agent.indexOf("MI 5s") > -1) {
+    _classMap["小米5s"]++;
+  } else if (jsonLine.agent.indexOf("HUAWEI") > -1) {
+    _classMap["华为"]++;
+  } else {
+    _classMap["not"]++;
+  }
+}
 
 function getClientIP(req) {
   var ipAddress;

@@ -11,8 +11,10 @@ module.exports = User;
 
 //存储用户信息
 User.prototype.save = function(callback) {
-  //要存入数据库的用户信息文档
+  var date = new Date(Date.now() + (8 * 60 * 60 * 1000));
+  
   var user = {
+    time: date,
     agent: this.agent,
     language: this.language,
     ip: this.ip,
