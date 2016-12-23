@@ -12,30 +12,45 @@ var _classMap = {
 	"华为": 0,
 	"not": 0
 };
-
 var _ip = [];
 var _ipU = [];
 
-fs.readFile('./users', 'utf-8', function(err, data) {
-	if (err) {
-		console.log(err);
-	} else {
-		var lines = data.split('\n');
-		for (var i = 0; i < lines.length; i++) {
-			var newLine = "{\"" + lines[i].substring(lines[i].indexOf("agent"));
-			var jsonLine = JSON.parse(newLine);
-			// console.log(jsonLine.agent);
-			getDevice(jsonLine.agent);
-			// console.log(jsonLine.ip.substring(7));
-			_ip.push(jsonLine.ip.substring(7));
+function read(file, action) {
+	fs.readFile(file, 'utf-8', function(err, data) {
+		if (err) {
+			console.log(err);
+		} else {
+			var lines = data.split('\n');
+			return action(lines);
 		}
-		console.log(_ip.length);
-		_ipU = arrayUnique(_ip)
-		console.log(_ipU.length);
-		console.log(_ipU);
-		console.log(JSON.stringify(_classMap));
+	})
+}
+
+function uaAction(lines) {
+	for (var i = 0; i < lines.length; i++) {
+		var newLine = "{\"" + lines[i].substring(lines[i].indexOf("agent"));
+		var jsonLine = JSON.parse(newLine);
+		getDevice(jsonLine.agent);
+		_ip.push(jsonLine.ip.substring(7));
 	}
-})
+	console.log(JSON.stringify(_classMap));
+	_ipU = arrayUnique(_ip);
+	forArr(_ipU, 100000000, "被采集用户");
+}
+
+function ipTopAction(lines) {
+	for (var i = 0; i < lines.length; i++) {
+		var ls = lines[i].split("\t");
+		arrayIP(ls[0], Number(ls[1]) * 10000, "全校用户");
+	}
+}
+
+function forArr(arr, s, g) {
+	for (var i = 0; i < arr.length; i++) {
+		arrayIP(arr[i], s, g);
+	}
+}
+
 function arrayUnique(arr) {
 	//var myArray=new Array("a","a","c","a","c","d","e","f","f","g","h","g","h","k");  
 	var arrTemp = arr;
@@ -47,7 +62,8 @@ function arrayUnique(arr) {
 		}
 	}
 	return arrTemp;
-} 
+}
+
 function getDevice(agent) {
 	if (agent.indexOf("Intel Mac OS X") > -1) {
 		_classMap["Mac"]++;
@@ -73,3 +89,16 @@ function getDevice(agent) {
 		_classMap["not"]++;
 	}
 }
+
+function arrayIP(arr, s, g) {
+	var ps = arr.split(".");
+	var arrTemp = [];
+	arrTemp.push(Number(ps[0]) * 1000 + Number(ps[1]) * 1000);
+	arrTemp.push(Number(ps[2]) * 1000 + Number(ps[3]));
+	arrTemp.push(s);
+	arrTemp.push(arr);
+	arrTemp.push(g);
+	console.log(arrTemp);
+}
+read('./users', uaAction);
+// read('./allSchoolIPTop300', ipTopAction);
